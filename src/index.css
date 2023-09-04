@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply relative bg-[#f5f5f5]
+}
+
+@layer components {
+    .btn {
+        @apply py-1 px-4 rounded
+    }
+
+    .nav-item {
+        @apply py-4 px-4 text-[#434343]
+    }
+
+    .focus-active {
+        @apply bg-[#F5F5F5]
+    }
+
+    .tab {
+        @apply py-2 px-4 text-3xl font-bold text-[#d9d9d9] mx-4
+    }
+
+    .login-item {
+        @apply flex text-center border border-[#bfbfbf] rounded-md py-3 mb-4
+    }
+
+    .login-input {
+        @apply block w-[100%] py-2 bg-[#fafafa] rounded-md mb-3 pl-10
+    }
+
+    .error-status {
+        @apply border border-[#e25252]
+    }
+
+    .product {
+        @apply w-[280px] h-[348px] rounded shrink-0 snap-start snap-always shadow-md overflow-hidden
+    }
+
+    .section-title {
+        @apply mb-4 text-2xl font-bold text-gray
+    }
+
+}
