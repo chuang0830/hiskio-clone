@@ -1,4 +1,3 @@
-// import * as $api from '@/library/api'
 import { createStore } from "vuex";
 
 export default createStore({
@@ -18,11 +17,9 @@ export default createStore({
     getUser(state) {
       return state.user;
     },
-    getCarts(state) {
-      return state.carts;
-    },
     getTotal(state) {
-      return state.carts.reduce((acc, cur) => cur.price + acc, 0);
+      return 0;
+      // return state.carts.reduce((acc, cur) => cur.price + acc, 0);
     },
   },
   mutations: {
@@ -34,12 +31,17 @@ export default createStore({
         isLoggedIn: false,
         name: "",
         avatar: "",
+        email: "",
       };
       state.user = defaultUser;
+      state.carts = [];
       localStorage.setItem("token", "");
+      localStorage.setItem("user", JSON.stringify(defaultUser));
+      localStorage.setItem("cartList", JSON.stringify([]));
     },
     setCarts(state, data) {
       state.carts = data;
+      localStorage.setItem("cartList", JSON.stringify(data));
     },
   },
   actions: {},

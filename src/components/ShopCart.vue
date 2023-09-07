@@ -20,7 +20,8 @@
                         </tr>
                     </thead>
                     <tbody class="table-row-group">
-                        <tr v-for="item in getCarts" :key="item.key" class="border-b border-[#D9D9D9] last:border-none">
+                        <tr v-for="item in $store.state.carts" :key="item.key"
+                            class="border-b border-[#D9D9D9] last:border-none">
                             <th scope="row" class="px-6 py-4 font-medium flex">
                                 <div class="w-[128px] overflow-hidden rounded-md mr-4">
                                     <img class="w-full h-full object-cover" :src="item.image" alt="">
@@ -42,7 +43,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <div v-for="item in getCarts" :key="item.key" class="md:hidden px-4 py-3 border-b border-[#D9D9D9]">
+                <div v-for="item in $store.state.carts" :key="item.key"
+                    class="md:hidden px-4 py-3 border-b border-[#D9D9D9]">
                     <div class="flex justify-between gap-x-4 items-start">
                         <div class="mb-3 flex flex-nowrap">
                             <img class="w-[62px] h-[34px] inline-block mr-2 rounded-sm" :src="item.image" alt="">
@@ -90,7 +92,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getCarts', 'getTotal']),
+        ...mapGetters(['getTotal']),
     },
     mounted() {
         this.getCartList()
@@ -108,19 +110,18 @@ export default {
                 if (data.includes('OK')) {
                     const newCartList = this.$store.state.carts.filter((item) => item.key !== targetId)
                     this.$store.commit('setCarts', newCartList)
-                    localStorage.setItem('cartList', JSON.stringify(newCartList))
                 }
 
             } else {
                 const cartList = JSON.parse(localStorage.getItem('cartList'))
                 const targetIndex = cartList.map((item) => item.key).indexOf(targetId)
                 cartList.splice(targetIndex, 1)
-                localStorage.setItem('cartList', JSON.stringify(cartList))
-                this.getCartList()
+                this.$store.commit('setCarts', cartList)
             }
         },
         getCartList() {
-            const cartList = JSON.parse(localStorage.getItem('cartList')) || [];
+            let cartList = []
+            localStorage.getItem('cartList') ? cartList = JSON.parse(localStorage.getItem('cartList')) : localStorage.setItem("cartList", JSON.stringify([]))
             this.$store.commit('setCarts', cartList)
         }
     }

@@ -35,7 +35,7 @@
                                     <p class="py-2 pl-4 text-gray">訂單記錄</p>
                                     <p class="py-2 pl-4 text-gray">帳戶設定</p>
                                 </div>
-                                <div class="pt-2 pb-3 pl-4 text-gray cursor-pointer">
+                                <div class="pt-2 pb-3 pl-4 text-gray cursor-pointer" @click="logout">
                                     會員登出
                                 </div>
                             </div>

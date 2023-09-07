@@ -116,7 +116,6 @@ export default {
                 } else {
                     newCartList.splice(targetIndex, 1)
                 }
-                localStorage.setItem('cartList', JSON.stringify(newCartList))
                 this.$store.commit('setCarts', newCartList)
             }
 

@@ -105,8 +105,9 @@ export default {
                 }
 
             } catch (error) {
-                const { response: { data } } = error
-                if (data?.message) {
+                const { response } = error
+                if (response?.data) {
+                    const { data } = response
                     if (data.message?.password) {
                         [this.message.password] = data.message.password
                         this.error.push('password')
@@ -127,6 +128,29 @@ export default {
             }
             localStorage.setItem('user', JSON.stringify(user))
             this.$store.commit('setLoggedIn', user)
+        },
+        async postCartList() {
+            const cartList = JSON.parse(localStorage.getItem("cartList")) || [];
+            if (cartList.length) {
+                const cartItem = cartList.map((item) => {
+                    return {
+                        id: item.key,
+                        "coupon": ""
+                    }
+                })
+                const { data } = await $api.postCart({ "items": cartItem, "coupons": [] });
+                const _list = data.data.map(item => {
+                    const { id, image, name, total,
+                    } = item
+                    return {
+                        key: id,
+                        image,
+                        title: name,
+                        price: total,
+                    }
+                })
+                this.$store.commit('setCarts', _list)
+            }
         },
     },
     destroyed: function () {
