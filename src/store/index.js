@@ -18,8 +18,7 @@ export default createStore({
       return state.user;
     },
     getTotal(state) {
-      return 0;
-      // return state.carts.reduce((acc, cur) => cur.price + acc, 0);
+      return state.carts.reduce((acc, cur) => cur.price + acc, 0);
     },
   },
   mutations: {
